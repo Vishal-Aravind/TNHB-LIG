@@ -1,0 +1,515 @@
+  <!DOCTYPE html>
+  <html>
+  <head>
+    <meta charset="utf-8">
+    <title>TNHB 360 Virtual Tour</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.css"/>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.js"></script>
+
+    <style>
+      html, body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        overflow: hidden;
+      }
+
+      #panorama {
+        width: 100%;
+        height: 100vh;
+      }
+
+      /* Sidebar Styles */
+      #sidebar {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 200px;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.75);
+        color: #fff;
+        z-index: 9999;
+        padding-top: 10px;
+        overflow-y: auto;
+        transition: left 0.3s ease;
+      }
+
+      #sidebar.collapsed {
+        left: -220px;
+      }
+
+      #sidebar h3 {
+        margin: 10px;
+        font-size: 16px;
+        text-align: center;
+        border-bottom: 1px solid #555;
+        padding-bottom: 5px;
+      }
+
+      #sidebar ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      #sidebar li {
+        padding: 10px;
+        cursor: pointer;
+        border-bottom: 1px solid #444;
+      }
+
+      #sidebar li:hover {
+        background-color: #555;
+      }
+
+      /* Toggle button */
+      #toggleButton {
+        position: absolute;
+        top: 10px;
+        left: 210px;
+        z-index: 10000;
+        background-color: #333;
+        color: #fff;
+        border: none;
+        padding: 8px 12px;
+        cursor: pointer;
+        font-size: 18px;
+        border-radius: 4px;
+        transition: left 0.3s ease;
+      }
+
+      #toggleButton.collapsed {
+        left: 10px;
+      }
+
+      /* Custom hotspot icon */
+      .custom-icon {
+        background-image: url("1.png");
+        background-size: cover;
+        width: 75px;
+        height: 75px;
+        border-radius: 50%;
+
+      
+      }
+      
+
+      .pnlm-context-menu {
+        display: none !important;
+      }
+    </style>
+  </head>
+  <body >
+
+    <!-- Sidebar Scene Menu -->
+    <div id="sidebar" class="collapsed">
+      <h3>Scene List</h3>
+      <ul>
+        <li onclick="loadSceneById('Outdoor_1')">Outdoor 1</li>
+        <li onclick="loadSceneById('Outdoor_2')">Outdoor 2</li>
+        <li onclick="loadSceneById('Outdoor_3')">Outdoor 3</li>
+        <li onclick="loadSceneById('Outdoor_4')">Outdoor 4</li>
+        <li onclick="loadSceneById('Outdoor_5')">Outdoor 5</li>
+        <li onclick="loadSceneById('Outdoor_6')">Outdoor 6</li>
+        <li onclick="loadSceneById('Lift')">Lift</li>
+        <li onclick="loadSceneById('Corridor_1')">Corridor 1</li>
+        <li onclick="loadSceneById('Corridor_2')">Corridor 2</li>
+        <li onclick="loadSceneById('L_Hall')">Living Hall</li>
+        <li onclick="loadSceneById('L_Bed_1_1')">Bedroom 1 - View 1</li>
+        <li onclick="loadSceneById('L_Bed_1_2')">Bedroom 1 - View 2</li>
+        <li onclick="loadSceneById('L_Bathroom_1')">Bathroom 1</li>
+        <li onclick="loadSceneById('L_Kitchen')">Kitchen</li>
+        <li onclick="loadSceneById('L_Utility')">Utility Room</li>
+        <li onclick="loadSceneById('L_Bed_2_1')">Bedroom 2 - View 1</li>
+        <li onclick="loadSceneById('L_Bedroom_2_2')">Bedroom 2 - View 2</li>
+        <li onclick="loadSceneById('L_Bathroom_2')">Bathroom 2</li>
+      </ul>
+    </div>
+
+    <!-- Toggle Button -->
+    <button id="toggleButton" class="collapsed" onclick="toggleSidebar()">☰</button>
+
+    <!-- Viewer Container -->
+    <div id="panorama"></div>
+
+    <!-- Script Section -->
+    <script>
+      let viewer;
+
+      function loadSceneById(id) {
+        if (viewer) {
+          viewer.loadScene(id);
+        }
+      }
+
+      function toggleSidebar() {
+        const sidebar = document.getElementById('sidebar');
+        const button = document.getElementById('toggleButton');
+        sidebar.classList.toggle('collapsed');
+        button.classList.toggle('collapsed');
+        button.textContent = sidebar.classList.contains('collapsed') ? '☰' : '×';
+      }
+
+      viewer = pannellum.viewer('panorama', {
+        "default": {
+          "firstScene": "Outdoor_1",
+          "sceneFadeDuration": 1000,
+          "autoLoad": true,
+
+        },
+        "scenes": {
+          "Outdoor_1": {
+            "title": "Outdoor 1",
+            "panorama": "Outdoor_1.jpg",
+            "yaw": 175,
+            "pitch": 0,
+            "hfov": 150,
+            "hotSpots": [
+              {
+                "pitch": -4,
+                "yaw": 175,
+                "Centre Pitch": 13,
+                "Centre Yaw": 175,
+                "type": "scene",
+                "text": "Go to Outdoor 2",
+                "sceneId": "Outdoor_2",
+                "cssClass": "custom-icon"
+              }
+            ]
+          },
+          "Outdoor_2": {
+            "title": "Outdoor 2",
+            "panorama": "Outdoor_2.jpg",
+            "yaw": 325,
+            "pitch": 0,
+            "hfov": 150,
+            "hotSpots": [
+              { 
+                "pitch": -7,
+                "yaw": -27,
+                "Centre Pitch": 2,
+                "Centre Yaw": 317,
+                "type": "scene",
+                "text": "Go to Outdoor 3",
+                "sceneId": "Outdoor_3",
+                "cssClass": "custom-icon"
+              },
+              {
+                "pitch": -4,
+                "yaw": 134,
+                "Centre Pitch": -10,
+                "Centre Yaw": 119,
+                "type": "scene",
+                "text": "Back to Outdoor 1",
+                "sceneId": "Outdoor_1",
+                "cssClass": "custom-icon"
+              }
+            ]
+          },
+          "Outdoor_3": {
+            "title": "Outdoor 3",
+            "panorama": "Outdoor_3.jpg",
+            "yaw": 225,
+            "pitch": 0,
+            "hfov": 150,
+            "hotSpots": [
+              {
+              "pitch": -7,
+                "yaw": -132,
+                "Centre Pitch": -1,
+                "Centre Yaw": 217,
+                "type": "scene",
+                "text": "Go to Outdoor 4",
+                "sceneId": "Outdoor_4",
+                "cssClass": "custom-icon"
+              },
+              {
+                "pitch": -6,
+                "yaw": 60,
+                "Centre Pitch": -9,
+                "Centre Yaw": 39.75,
+                "type": "scene",
+                "text": "Back to Outdoor 2",
+                "sceneId": "Outdoor_2",
+                "cssClass": "custom-icon"
+              }
+            ]
+          },
+          "Outdoor_4": {
+            "title": "Outdoor 4",
+            "panorama": "Outdoor_4.jpg",
+            "yaw": 221 ,
+            "pitch": 0,
+            "hfov": 150,
+            "hotSpots": [
+              {
+                "pitch": -16,
+                "yaw": -110,
+                "Centre Pitch": 0,
+                "Centre Yaw": 221,
+                "type": "scene",
+                "text": "Go to Outdoor 5",
+                "sceneId": "Outdoor_5",
+                "cssClass": "custom-icon"
+              },
+              {
+                "pitch": -5,
+                "yaw": 133,
+                "Centre Pitch": 1,
+                "Centre Yaw": 129,
+                "type": "scene",
+                "text": "Back to Outdoor 3",
+                "sceneId": "Outdoor_3",
+                "cssClass": "custom-icon"
+              }
+            ]
+          },
+          "Outdoor_5": {
+            "title": "Outdoor 5",
+            "panorama": "Outdoor_5.jpg",
+            "yaw": -11,
+            "pitch": -10,
+            "hfov": 150,
+            "hotSpots": [
+              {
+              "pitch": -17,
+                "yaw": -7,
+                "Centre Pitch": -24,
+                "Centre Yaw": 346,
+                "type": "scene",
+                "text": "Go to Outdoor 6",
+                "sceneId": "Outdoor_6",
+                "cssClass": "custom-icon"
+              },
+              {
+                "pitch": -10,
+                "yaw": -168,
+                "Centre Pitch": -3,
+                "Centre Yaw": 164,
+                "type": "scene",
+                "text": "Back to Outdoor 4",
+                "sceneId": "Outdoor_4",
+                "cssClass": "custom-icon"
+              }
+            ]
+          },
+          "Outdoor_6": {
+            "title": "Outdoor 6",
+            "panorama": "Outdoor_6.jpg",
+            "yaw": 59,
+            "pitch": 0,
+            "hfov": 150,
+            "hotSpots": [
+              {
+                "pitch": -17,
+                "yaw": 76,
+                "Centre Pitch": 0,
+                "Centre Yaw": 59,
+                "type": "scene",
+                "text": "Go to Lift",
+                "sceneId": "Lift",
+                "cssClass": "custom-icon"
+              },
+              {
+                "pitch": -16,
+                "yaw": -107,
+                "Centre Pitch": -12,
+                "Centre Yaw": 241,
+                "type": "scene",
+                "text": "Back to Outdoor 5",
+                "sceneId": "Outdoor_5",
+                "cssClass": "custom-icon"
+              }
+            ]
+          },
+          "Lift": {
+            "title": "Lift",
+            "panorama": "Lift.jpg",
+            "yaw": 24,
+            "pitch":-16,
+            "hfov": 150,
+            "hotSpots": [
+              {
+                "pitch": -37,
+                "yaw": 22,
+                "Centre Pitch": -15,
+                "Centre Yaw": 29,
+                "type": "scene",
+                "text": "Go to Corridor 1",
+                "sceneId": "Corridor_1",
+                "cssClass": "custom-icon"
+              },
+              {
+              "pitch": -52,
+                "yaw": -155,
+                "Centre Pitch": -18,
+                "Centre Yaw": 202,
+                "type": "scene",
+                "text": "Back to Outdoor 6",
+                "sceneId": "Outdoor_6",
+                "cssClass": "custom-icon"
+              }
+            ]
+          },
+          "Corridor_1": {
+            "title": "Corridor 1",
+            "panorama": "Corridor_1.jpg",
+            "yaw": -5,
+            "pitch": -5,
+            "hfov": 150,
+            "hotSpots": [
+              {
+              "pitch": -26,
+                "yaw": -1,
+                "Centre Pitch": -5,
+                "Centre Yaw": -5,
+                "type": "scene",
+                "text": "Go to Corridor 2",
+                "sceneId": "Corridor_2",
+                "cssClass": "custom-icon"
+              },
+              {
+              "pitch": -34,
+                "yaw": -93,
+                "Centre Pitch": -9,
+                "Centre Yaw": -96,
+                "type": "scene",
+                "text": "Back to Lift",
+                "sceneId": "Lift",
+                "cssClass": "custom-icon"
+              }
+            ]
+          },
+          "Corridor_2": {
+            "title": "Corridor 2",
+            "panorama": "Corridor_2.jpg",
+            "yaw": -16,
+            "pitch": -10,
+            "hfov": 150,
+            "hotSpots": [
+              {
+              "pitch": -26,
+                "yaw": -26,
+                "Centre Pitch": -14,
+                "Centre Yaw": -16,
+                "type": "scene",
+                "text": "Go to Living Hall",
+                "sceneId": "L_Hall",
+                "cssClass": "custom-icon"
+              },
+              {
+                "pitch": -25,
+                "yaw": 72,
+                "Centre Pitch": -16,
+                "Centre Yaw": 75,
+                "type": "scene",
+                "text": "Back to Corridor 1",
+                "sceneId": "Lift",
+                "cssClass": "custom-icon"
+              }
+            ]
+          },
+          "L_Hall": {
+            "title": "Living Hall",
+            "panorama": "L_Hall.jpg",
+            "yaw": 87 ,
+            "pitch": -10,
+            "hfov": 150,
+            "hotSpots": [
+              { "pitch": -34, "yaw": -2, "Centre Pitch":-17, "Centre Yaw":-1, "type": "scene", "text": "Bedroom 1", "sceneId": "L_Bed_1_1" , "cssClass": "custom-icon"},
+              { "pitch": -32, "yaw": 32, "Centre Pitch":-10 , "Centre Yaw":5, "type": "scene", "text": "Bathroom 1", "sceneId": "L_Bathroom_1", "cssClass": "custom-icon" },
+              { "pitch": -25, "yaw": 76, "Centre Pitch":-10 , "Centre Yaw":87, "type": "scene", "text": "Kitchen", "sceneId": "L_Kitchen" , "cssClass": "custom-icon" },
+              { "pitch": -35, "yaw": 106, "Centre Pitch":-16 , "Centre Yaw":90, "type": "scene", "text": "Bedroom 2", "sceneId": "L_Bed_2_1" , "cssClass": "custom-icon" },
+              { "pitch": -21, "yaw": -104, "Centre Pitch":-9 , "Centre Yaw":273, "type": "scene", "text": "Corridor 2", "sceneId": "Corridor_2" , "cssClass": "custom-icon" }
+            ]
+          },
+          "L_Bed_1_1": {
+            "title": "Bedroom 1 - View 1",
+            "panorama": "L_Bed_1_1.jpg",
+            "yaw": 130,
+            "pitch": -7,
+            "hfov": 150,
+            "hotSpots": [
+              { "pitch": -32 , "yaw": 139 ,"Centre Pitch":-7 , "Centre Yaw":130, "type": "scene", "text": "View 2", "sceneId": "L_Bed_1_2", "cssClass": "custom-icon" },
+              { "pitch": -34, "yaw": -1,"Centre Pitch":-25 , "Centre Yaw":359, "type": "scene", "text": "Back to Hall", "sceneId": "L_Hall", "cssClass": "custom-icon" }
+            ]
+          },
+          "L_Bed_1_2": {
+            "title": "Bedroom 1 - View 2",
+            "panorama": "L_Bed_1_2.jpg",
+            "yaw": 166,
+            "pitch": -10,
+            "hfov": 150,
+            "hotSpots": [
+              { "pitch": -37, "yaw": 165 ,"Centre Pitch":-10, "Centre Yaw":166, "type": "scene", "text": "Back to View 1", "sceneId": "L_Bed_1_1", "cssClass": "custom-icon" }
+            ]
+          },
+          "L_Bathroom_1": {
+            "title": "Bathroom 1",
+            "panorama": "L_Bathroom_1.jpg",
+            "yaw": 180,
+            "pitch": -1,
+            "hfov": 150,
+            "hotSpots": [
+              { "pitch": -31, "yaw": 21,"Centre Pitch":-8 , "Centre Yaw":2, "type": "scene", "text": "Back to Hall", "sceneId": "L_Hall", "cssClass": "custom-icon" }
+            ]
+          },
+          "L_Kitchen": {
+            "title": "Kitchen",
+            "panorama": "L_Kitchen.jpg",
+            "yaw": -12,
+            "pitch": 0,
+            "hfov": 150,
+            "hotSpots": [
+              { "pitch": -29, "yaw": -97, "Centre Pitch":-1 , "Centre Yaw":-103, "type": "scene", "text": "Utility", "sceneId": "L_Utility", "cssClass": "custom-icon" },
+              { "pitch": -23, "yaw": 153,"Centre Pitch":-5 , "Centre Yaw":155, "type": "scene", "text": "Back to Hall", "sceneId": "L_Hall", "cssClass": "custom-icon" }
+            ]
+          },
+          "L_Utility": {
+            "title": "Utility Room",
+            "panorama": "L_Utility.jpg",
+            "yaw": 0,
+            "pitch": 0,
+            "hfov": 150,
+            "hotSpots": [
+              { "pitch": -32, "yaw": 100 ,"Centre Pitch":-15 , "Centre Yaw":92, "type": "scene", "text": "Back to Kitchen", "sceneId": "L_Kitchen", "cssClass": "custom-icon" }
+            ]
+          },
+          "L_Bed_2_1": {
+            "title": "Bedroom 2 - View 1",
+            "panorama": "L_Bed_2_1.jpg",
+            "yaw": 195,
+            "pitch": -10,
+            "hfov": 150,
+            "hotSpots": [
+              { "pitch": -38, "yaw": -160 ,"Centre Pitch":-10 , "Centre Yaw":195 , "type": "scene", "text": "View 2", "sceneId": "L_Bedroom_2_2", "cssClass": "custom-icon" },
+              { "pitch": -26, "yaw": -9, "Centre Pitch":-18 , "Centre Yaw":339,  "type": "scene", "text": "Back to Hall", "sceneId": "L_Hall", "cssClass": "custom-icon" }
+            ]
+          },
+          "L_Bedroom_2_2": {
+            "title": "Bedroom 2 - View 2",
+            "panorama": "L_Bed_2_2.jpg",
+            "yaw": -15,
+            "pitch": -10,
+            "hfov": 150,
+            "hotSpots": [
+              { "pitch": -30, "yaw": -19, "Centre Pitch":-11 , "Centre Yaw":-22, "type": "scene", "text": "Bathroom 2", "sceneId": "L_Bathroom_2", "cssClass": "custom-icon" },
+              { "pitch": -41, "yaw": 15,"Centre Pitch":-10 , "Centre Yaw":-15, "type": "scene", "text": "Back to View 1", "sceneId": "L_Bed_2_1", "cssClass": "custom-icon" }
+            ]
+          },
+          "L_Bathroom_2": {
+            "title": "Bathroom 2",
+            "panorama": "L_Bathroom_2.jpg",
+            "yaw": 171,
+            "pitch": 0,
+            "hfov": 150,
+            "hotSpots": [
+              { "pitch": -32, "yaw": -121, "Centre Pitch":-6 , "Centre Yaw":225, "type": "scene", "text": "Back to Bedroom 2 - View 2", "sceneId": "L_Bedroom_2_2", "cssClass": "custom-icon"}
+            ]
+          }
+        }
+      });
+    </script>
+  </body> 
+  </html>
