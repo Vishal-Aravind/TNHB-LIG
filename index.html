@@ -8,6 +8,52 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.js"></script>
 
     <style>
+
+     #rotateWarning {
+  display: none;
+  position: fixed;
+  z-index: 10000;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: #000;
+  color: white;
+  text-align: center;
+  padding-top: 30vh;
+}
+
+#rotateWarning img {
+  width: 100px;
+  height: auto;
+  margin-bottom: 20px;
+}
+
+@media screen and (orientation: portrait) {
+  #rotateWarning {
+    display: block;
+  }
+  #panorama,
+  #sidebar,
+  #toggleButton,
+  #iOSFullscreenBtn {
+    display: none !important;
+  }
+}
+
+@media screen and (orientation: landscape) {
+  #rotateWarning {
+    display: none;
+  }
+  #panorama,
+  #sidebar,
+  #toggleButton,
+  #iOSFullscreenBtn {
+    display: block;
+  }
+}
+
+
       html, body {
         margin: 0;
         padding: 0;
@@ -109,8 +155,8 @@
       .custom-icon {
         background-image: url("1.png");
         background-size: cover;
-        width: 75px;
-        height: 75px;
+        width: 63px;
+        height: 63px;
         border-radius: 50%;
 
       
@@ -151,6 +197,12 @@
 
     <!-- Toggle Button -->
     <button id="toggleButton" class="collapsed" onclick="toggleSidebar()">☰</button>
+
+    <div id="rotateWarning">
+  <img src="rotate.jpg" alt="Rotate your device" />
+  <p>Please rotate your device to landscape mode</p>
+</div>
+
 
     <!-- Viewer Container -->
     <div id="panorama"></div>
@@ -254,6 +306,8 @@
                 "type": "scene",
                 "text": "Back to Outdoor 2",
                 "sceneId": "Outdoor_2",
+                "targetYaw":135,
+                "targetPitch":3,
                 "cssClass": "custom-icon"
               }
             ]
@@ -283,6 +337,8 @@
                 "type": "scene",
                 "text": "Back to Outdoor 3",
                 "sceneId": "Outdoor_3",
+                "targetYaw":65,
+                "targetPitch":0,
                 "cssClass": "custom-icon"
               }
             ]
@@ -312,6 +368,8 @@
                 "type": "scene",
                 "text": "Back to Outdoor 4",
                 "sceneId": "Outdoor_4",
+                "targetYaw":135,
+                "targetPitch":3,
                 "cssClass": "custom-icon"
               }
             ]
@@ -341,6 +399,8 @@
                 "type": "scene",
                 "text": "Back to Outdoor 5",
                 "sceneId": "Outdoor_5",
+                "targetYaw":172,
+                "targetPitch":3,
                 "cssClass": "custom-icon"
               }
             ]
@@ -348,14 +408,14 @@
           "Lift": {
             "title": "Lift",
             "panorama": "Lift.jpg",
-            "yaw": 24,
-            "pitch":-16,
+            "yaw": 27,
+            "pitch":-5,
             "hfov": 150,
             "hotSpots": [
               {
-                "pitch": -37,
+                "pitch": -29,
                 "yaw": 22,
-                "Centre Pitch": -15,
+                "Centre Pitch": 0,
                 "Centre Yaw": 29,
                 "type": "scene",
                 "text": "Go to Corridor 1",
@@ -363,13 +423,15 @@
                 "cssClass": "custom-icon"
               },
               {
-              "pitch": -52,
-                "yaw": -155,
-                "Centre Pitch": -18,
-                "Centre Yaw": 202,
+               "pitch": -39,
+                "yaw": -157,
+                "Centre Pitch": -2,
+                "Centre Yaw": 210,
                 "type": "scene",
                 "text": "Back to Outdoor 6",
                 "sceneId": "Outdoor_6",
+                "targetYaw":255,
+                "targetPitch":-5,
                 "cssClass": "custom-icon"
               }
             ]
@@ -399,6 +461,8 @@
                 "type": "scene",
                 "text": "Back to Lift",
                 "sceneId": "Lift",
+                "targetYaw":207,
+                "targetPitch":-2,
                 "cssClass": "custom-icon"
               }
             ]
@@ -427,7 +491,9 @@
                 "Centre Yaw": 75,
                 "type": "scene",
                 "text": "Back to Corridor 1",
-                "sceneId": "Lift",
+                "sceneId": "Corridor_1",
+                "targetYaw":-91,
+                "targetPitch":-7,
                 "cssClass": "custom-icon"
               }
             ]
@@ -443,7 +509,7 @@
               { "pitch": -32, "yaw": 32, "Centre Pitch":-10 , "Centre Yaw":5, "type": "scene", "text": "Bathroom 1", "sceneId": "L_Bathroom_1", "cssClass": "custom-icon" },
               { "pitch": -25, "yaw": 76, "Centre Pitch":-10 , "Centre Yaw":87, "type": "scene", "text": "Kitchen", "sceneId": "L_Kitchen" , "cssClass": "custom-icon" },
               { "pitch": -35, "yaw": 106, "Centre Pitch":-16 , "Centre Yaw":90, "type": "scene", "text": "Bedroom 2", "sceneId": "L_Bed_2_1" , "cssClass": "custom-icon" },
-              { "pitch": -21, "yaw": -104, "Centre Pitch":-9 , "Centre Yaw":273, "type": "scene", "text": "Corridor 2", "sceneId": "Corridor_2" , "cssClass": "custom-icon" }
+              { "pitch": -21, "yaw": -104, "Centre Pitch":-9 , "Centre Yaw":273, "type": "scene", "text": "Corridor 2", "sceneId": "Corridor_2" , "targetYaw":67, "targetPitch":-5, "cssClass": "custom-icon" }
             ]
           },
           "L_Bed_1_1": {
@@ -464,7 +530,7 @@
             "pitch": -10,
             "hfov": 150,
             "hotSpots": [
-              { "pitch": -37, "yaw": 165 ,"Centre Pitch":-10, "Centre Yaw":166, "type": "scene", "text": "Back to View 1", "sceneId": "L_Bed_1_1", "cssClass": "custom-icon" }
+              { "pitch": -37, "yaw": 165 ,"Centre Pitch":-10, "Centre Yaw":166, "type": "scene", "text": "Back to View 1", "sceneId": "L_Bed_1_1", "targetYaw": -10 , "targetPitch": -5, "cssClass": "custom-icon" }
             ]
           },
           "L_Bathroom_1": {
@@ -480,8 +546,8 @@
           "L_Kitchen": {
             "title": "Kitchen",
             "panorama": "L_Kitchen.jpg",
-            "yaw": -12,
-            "pitch": 0,
+            "yaw": 315,
+            "pitch": -7,
             "hfov": 150,
             "hotSpots": [
               { "pitch": -29, "yaw": -97, "Centre Pitch":-1 , "Centre Yaw":-103, "type": "scene", "text": "Utility", "sceneId": "L_Utility", "cssClass": "custom-icon" },
@@ -495,7 +561,7 @@
             "pitch": 0,
             "hfov": 150,
             "hotSpots": [
-              { "pitch": -32, "yaw": 100 ,"Centre Pitch":-15 , "Centre Yaw":92, "type": "scene", "text": "Back to Kitchen", "sceneId": "L_Kitchen", "cssClass": "custom-icon" }
+              { "pitch": -32, "yaw": 100 ,"Centre Pitch":-15 , "Centre Yaw":92, "type": "scene", "text": "Back to Kitchen", "sceneId": "L_Kitchen", "targetYaw":167, "targetPitch": -5, "cssClass": "custom-icon" }
             ]
           },
           "L_Bed_2_1": {
@@ -517,7 +583,7 @@
             "hfov": 150,
             "hotSpots": [
               { "pitch": -30, "yaw": -19, "Centre Pitch":-11 , "Centre Yaw":-22, "type": "scene", "text": "Bathroom 2", "sceneId": "L_Bathroom_2", "cssClass": "custom-icon" },
-              { "pitch": -41, "yaw": 15,"Centre Pitch":-10 , "Centre Yaw":-15, "type": "scene", "text": "Back to View 1", "sceneId": "L_Bed_2_1", "cssClass": "custom-icon" }
+              { "pitch": -41, "yaw": 15,"Centre Pitch":-10 , "Centre Yaw":-15, "type": "scene", "text": "Back to View 1", "sceneId": "L_Bed_2_1", "targetYaw":343, "targetPitch":-10, "cssClass": "custom-icon" }
             ]
           },
           "L_Bathroom_2": {
@@ -554,5 +620,25 @@
     }
   });
 </script>
+
+<script>
+  function handleOrientationChange() {
+    const warning = document.getElementById('rotateWarning');
+    const isPortrait = window.innerHeight > window.innerWidth;
+
+    if (isPortrait) {
+      warning.style.display = 'block';
+    } else {
+      warning.style.display = 'none';
+    }
+  }
+
+  window.addEventListener("orientationchange", handleOrientationChange);
+  window.addEventListener("resize", handleOrientationChange);
+
+  // Initial check
+  handleOrientationChange();
+</script>
+
   </body> 
   </html>
