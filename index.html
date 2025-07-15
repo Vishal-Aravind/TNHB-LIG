@@ -12,7 +12,7 @@
 #rotateWarning {
   display: none;
   position: fixed;
-  z-index: 10000;
+  z-index: 9999;
   top: 0;
   left: 0;
   width: 100vw;
@@ -22,15 +22,16 @@
   text-align: center;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
+  align-items: center;
   padding: 20px;
+  font-size: 18px;
 }
 
 
 #rotateWarning img {
-  width: 40vw; /* 40% of viewport width */
-  max-width: 300px;
+  width: 60vw;            /* Use more width of screen */
+  max-width: 300px;       /* But keep max limit */
   height: auto;
   margin-bottom: 20px;
 }
@@ -205,11 +206,10 @@
     <!-- Toggle Button -->
     <button id="toggleButton" class="collapsed" onclick="toggleSidebar()">☰</button>
 
-    <div id="rotateWarning">
-  <img src="rotate.jpg" alt="Rotate your device" />
+<div id="rotateWarning">
+  <img src="rotate.png" alt="Rotate your device" />
   <p>Please rotate your device to landscape mode</p>
 </div>
-
 
     <!-- Viewer Container -->
     <div id="panorama"></div>
@@ -629,22 +629,21 @@
 </script>
 
 <script>
-  function handleOrientationChange() {
-    const warning = document.getElementById('rotateWarning');
-    const isPortrait = window.innerHeight > window.innerWidth;
-
-    if (isPortrait) {
-      warning.style.display = 'block';
-    } else {
-      warning.style.display = 'none';
-    }
+// Detect orientation change
+function checkOrientation() {
+  const warning = document.getElementById("rotateWarning");
+  if (window.innerHeight > window.innerWidth) {
+    // Portrait
+    warning.style.display = "flex";
+  } else {
+    // Landscape
+    warning.style.display = "none";
   }
+}
 
-  window.addEventListener("orientationchange", handleOrientationChange);
-  window.addEventListener("resize", handleOrientationChange);
-
-  // Initial check
-  handleOrientationChange();
+// Initial check + on rotate
+window.addEventListener("load", checkOrientation);
+window.addEventListener("resize", checkOrientation);
 </script>
 
   </body> 
