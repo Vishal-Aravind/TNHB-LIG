@@ -9,26 +9,32 @@
 
     <style>
 
-     #rotateWarning {
+#rotateWarning {
   display: none;
   position: fixed;
   z-index: 10000;
   top: 0;
   left: 0;
-  max-width:300px;
-  height: auto;
-  margin-bottom: 20px;
+  width: 100vw;
+  height: 100vh;
   background: #000;
   color: white;
   text-align: center;
-  padding-top: 30vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
 }
 
+
 #rotateWarning img {
-  width: 100px;
+  width: 40vw; /* 40% of viewport width */
+  max-width: 300px;
   height: auto;
   margin-bottom: 20px;
 }
+
 
 @media screen and (orientation: portrait) {
   #rotateWarning {
