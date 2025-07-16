@@ -6,44 +6,60 @@
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.css"/>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap" rel="stylesheet">
 
     <style>
 
-#rotateOverlay {
-  display: none;
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: rgba(0, 0, 0, 0.9);
-  z-index: 10000;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  color: #fff;
-  text-align: center;
-  padding: 20px;
-}
-
-@keyframes float {
-  0%, 100% {
-    transform: translateY(0);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  #rotateOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: #0a0a0a;
+    color: #fff;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 100000;
+    flex-direction: column;
+    font-family: 'Poppins', sans-serif;
+    text-align: center;
   }
-  50% {
-    transform: translateY(-10px);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+
+  #rotateOverlay img {
+    width: 180px;
+    height: auto;
+    animation: rotatePop 3s ease-in-out infinite;
   }
-}
 
-#rotateOverlay img {
-  animation: float 3s ease-in-out infinite;
-}
+  #rotateOverlay span {
+    margin-top: 20px;
+    font-size: 22px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+  }
 
+  @media only screen and (orientation: portrait) {
+    #rotateOverlay {
+      display: flex;
+    }
+  }
 
-#rotateOverlay p {
-  font-size: 1.2rem;
-}
-
+  @keyframes rotatePop {
+    0%, 100% {
+      transform: rotate(0deg) scale(1);
+    }
+    25% {
+      transform: rotate(10deg) scale(1.05);
+    }
+    50% {
+      transform: rotate(-10deg) scale(1.1);
+    }
+    75% {
+      transform: rotate(5deg) scale(1.05);
+    }
+  }
 
 
 @media screen and (orientation: portrait) {
@@ -216,9 +232,10 @@
     <button id="toggleButton" class="collapsed" onclick="toggleSidebar()">☰</button>
 
 <div id="rotateOverlay">
-  <img src="rotate-device.png" alt="Rotate" />
-  <p>Please rotate your device to landscape</p>
+  <img src="rotate-device.png" alt="Rotate your device" />
+  <span>Please rotate your device<br>to landscape mode</span>
 </div>
+
 
 
     <!-- Viewer Container -->
