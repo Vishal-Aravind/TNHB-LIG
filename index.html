@@ -24,23 +24,21 @@
   padding: 20px;
 }
 
-@keyframes slowRotate {
-  from {
-    transform: rotate(0deg);
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
   }
-  to {
-    transform: rotate(360deg);
+  50% {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
   }
 }
 
 #rotateOverlay img {
-  max-width: 80vw;
-  max-height: 40vh;
-  width: auto;
-  height: auto;
-  margin-bottom: 20px;
-  animation: slowRotate 10s linear infinite; /* 👈 This makes it rotate */
+  animation: float 3s ease-in-out infinite;
 }
+
 
 #rotateOverlay p {
   font-size: 1.2rem;
