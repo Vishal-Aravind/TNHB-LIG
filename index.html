@@ -9,32 +9,25 @@
 
     <style>
 
-#rotateWarning {
+#rotateOverlay {
   display: none;
   position: fixed;
-  z-index: 9999;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: #000;
-  color: white;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 10000;
   justify-content: center;
   align-items: center;
-  padding: 20px;
-  font-size: 18px;
+  flex-direction: column;
+  color: #fff;
+  text-align: center;
 }
 
-
-#rotateWarning img {
-  width: 60vw;            /* Use more width of screen */
-  max-width: 300px;       /* But keep max limit */
-  height: auto;
+#rotateOverlay img {
+  max-width: 200px;
   margin-bottom: 20px;
 }
+
 
 
 @media screen and (orientation: portrait) {
@@ -206,10 +199,11 @@
     <!-- Toggle Button -->
     <button id="toggleButton" class="collapsed" onclick="toggleSidebar()">☰</button>
 
-<div id="rotateWarning">
-  <img src="rotate.png" alt="Rotate your device" />
-  <p>Please rotate your device to landscape mode</p>
+<div id="rotateOverlay">
+  <img src="rotate-device.png" alt="Rotate" />
+  <p>Please rotate your device to landscape</p>
 </div>
+
 
     <!-- Viewer Container -->
     <div id="panorama"></div>
@@ -629,22 +623,17 @@
 </script>
 
 <script>
-// Detect orientation change
-function checkOrientation() {
-  const warning = document.getElementById("rotateWarning");
-  if (window.innerHeight > window.innerWidth) {
-    // Portrait
-    warning.style.display = "flex";
-  } else {
-    // Landscape
-    warning.style.display = "none";
+  function checkOrientation() {
+    const o = screen.orientation || window.orientation;
+    const overlay = document.getElementById('rotateOverlay');
+    const isLandscape = (o.type ? o.type.includes('landscape') : Math.abs(o) === 90);
+    overlay.style.display = isLandscape ? 'none' : 'flex';
   }
-}
-
-// Initial check + on rotate
-window.addEventListener("load", checkOrientation);
-window.addEventListener("resize", checkOrientation);
+  window.addEventListener('orientationchange', checkOrientation);
+  window.addEventListener('resize', checkOrientation);
+  checkOrientation();
 </script>
+
 
   </body> 
   </html>
