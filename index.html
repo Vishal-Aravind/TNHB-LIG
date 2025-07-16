@@ -39,22 +39,27 @@
     transform: scale(1.1);
     opacity: 1;
   }
-} 
+}
 
 #rotateOverlay img {
-  max-width: 180px;
-  width: 50vw;
+  max-width: 180px; /* Increased size */
+  width: 45vw;
   height: auto;
   margin-bottom: 20px;
-  animation: breathe 3s ease-in-out infinite;
+  animation: float 3s ease-in-out infinite;
 }
 
 #rotateOverlay span {
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 500;
   line-height: 1.4;
 }
 
+@media only screen and (orientation: portrait) {
+  #rotateOverlay {
+    display: flex;
+  }
+}
 @media only screen and (orientation: portrait) {
   #rotateOverlay {
     display: flex;
