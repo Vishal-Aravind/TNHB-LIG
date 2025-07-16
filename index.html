@@ -42,17 +42,17 @@
 }
 
 #rotateOverlay img {
-  max-width: 180px; /* Increased size */
-  width: 45vw;
+  max-width: 220px; /* Slightly bigger image */
+  width: 50vw;
   height: auto;
-  margin-bottom: 20px;
-  animation: float 3s ease-in-out infinite;
+  margin-bottom: 24px;
+  animation: breathe 3s ease-in-out infinite;
 }
 
 #rotateOverlay span {
-  font-size: 18px;
-  font-weight: 500;
-  line-height: 1.4;
+  font-size: 22px; /* Slightly bigger font */
+  font-weight: 600;
+  line-height: 1.5;
 }
 
 @media only screen and (orientation: portrait) {
@@ -60,12 +60,6 @@
     display: flex;
   }
 }
-@media only screen and (orientation: portrait) {
-  #rotateOverlay {
-    display: flex;
-  }
-}
-
 
 @media screen and (orientation: portrait) {
   #rotateWarning {
