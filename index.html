@@ -268,11 +268,6 @@
     <!-- Toggle Button -->
     <button id="toggleButton" class="collapsed" onclick="toggleSidebar()">☰</button>
 
-<!-- <div id="rotateOverlay">
-  <img src="rotate.png" alt="Rotate your device" />
-  <span>Please rotate your device<br>to landscape </span>
-</div> -->
-
  <!-- Message box in scene 1-->
 <div id="scene1InfoBox">
   <div class="info-content">
@@ -294,7 +289,7 @@
   height: 100vh;
   background-color: #000;
   color: #fff;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Poppins', sans-serif; 
   font-size: 20px;
   justify-content: center;
   align-items: center;
@@ -312,6 +307,35 @@
     <!-- Script Section -->
     <script>
       let viewer;
+
+      const sceneList = [
+  'Outdoor_1', 'Outdoor_2', 'Outdoor_3', 'Outdoor_4', 'Outdoor_5', 'Outdoor_6',
+  'Corridor_1', 'Corridor_2', 'Corridor_3',
+  'Hall', 'Bedroom_1', 'Bedroom_2',
+  'Bathroom_1', 'Bathroom_2', 'Kitchen', 'Utility'
+];
+
+let preloadDelay = 100; // ms between scene loads
+
+function preloadScenes(viewer, scenes, i = 0) {
+  if (i >= scenes.length) {
+    viewer.loadScene('Outdoor_1'); // or your default scene
+    return;
+  }
+
+  viewer.loadScene(scenes[i], null, {transitionDuration: 0});
+  
+  setTimeout(() => {
+    preloadScenes(viewer, scenes, i + 1);
+  }, preloadDelay);
+}
+
+// Start preloading after page load
+window.addEventListener('load', function () {
+  preloadScenes(viewer, sceneList);
+});
+
+
 //Message box in scene 1
 let outdoor1InfoShown = false;
 let outdoor1InfoDismissed = false;   // Global flag
@@ -792,7 +816,6 @@ function dismissInfo() {
     setTimeout(checkOrientation, 300);
   });
 </script>
-
 
   </body> 
   </html>
