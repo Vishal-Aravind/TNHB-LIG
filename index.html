@@ -242,6 +242,31 @@
   background: sandybrown;
 }
 
+
+
+.info-overlay {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0,0,0,0.85);
+  color: white;
+  padding: 18px 24px;
+  border-radius: 12px;
+  font-family: 'Poppins', sans-serif;
+  z-index: 9999;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+}
+.info-overlay button {
+  margin-top: 10px;
+  padding: 6px 12px;
+  background: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
     </style>
   </head>
   <body >
@@ -306,6 +331,12 @@
   <p>Please rotate your device to landscape mode</p>
 </div>
 
+<div id="sceneInfoOverlay" class="info-overlay" style="display: none;">
+  <div class="info-content">
+    <span id="infoText">Info goes here</span>
+    <button onclick="document.getElementById('sceneInfoOverlay').style.display='none'">Close</button>
+  </div>
+</div>
 
     <!-- Viewer Container -->
     <div id="panorama"></div>
@@ -313,6 +344,25 @@
     <!-- Script Section -->
     <script>
       let viewer;
+
+function createInfoHotspot(hotSpotDiv, args) {
+  hotSpotDiv.classList.add('custom-info-hotspot');
+
+  const img = document.createElement('img');
+  img.src = args.image;
+  img.alt = 'Info';
+  img.style.width = '45px';  // Adjust size here
+  img.style.height = '45px';
+  img.style.borderRadius = '50%';
+ 
+  img.style.cursor = 'pointer';
+
+  hotSpotDiv.appendChild(img);
+
+  hotSpotDiv.addEventListener('click', function () {
+    showInfoOverlay(args.message);
+  });
+}
 
 //Message box in scene 1
 let outdoor1InfoShown = false;
@@ -324,6 +374,11 @@ function dismissInfo() {
   outdoor1InfoShown = true;  // Set flag to true so it won't show again
 }
   
+function showInfoOverlay(message) {
+  document.getElementById('infoText').innerText = message;
+  document.getElementById('sceneInfoOverlay').style.display = 'block';
+}
+
 function loadSceneById(id) {
   if (viewer) {
     viewer.loadScene(id);
@@ -347,6 +402,7 @@ function loadSceneById(id) {
           "firstScene": "Outdoor_1",
           "sceneFadeDuration": 1000,
           "autoLoad": true,
+          "hotSpotDebug":false
         },
         "scenes": {
           "Outdoor_1": {
@@ -625,7 +681,19 @@ function loadSceneById(id) {
               { "pitch": -32, "yaw": 32, "Centre Pitch":-10 , "Centre Yaw":5, "type": "scene", "text": "Bathroom 1", "sceneId": "L_Bathroom_1", "cssClass": "custom-icon" },
               { "pitch": -25, "yaw": 76, "Centre Pitch":-10 , "Centre Yaw":87, "type": "scene", "text": "Kitchen", "sceneId": "L_Kitchen" , "cssClass": "custom-icon-1" },
               { "pitch": -35, "yaw": 106, "Centre Pitch":-16 , "Centre Yaw":90, "type": "scene", "text": "Bedroom 2", "sceneId": "L_Bed_2_1" , "cssClass": "custom-icon-1" },
-              { "pitch": -21, "yaw": -104, "Centre Pitch":-9 , "Centre Yaw":273, "type": "scene", "text": "Corridor 2", "sceneId": "Corridor_2" , "targetYaw":67, "targetPitch":-5, "cssClass": "custom-icon" }
+              { "pitch": -21, "yaw": -104, "Centre Pitch":-9 , "Centre Yaw":273, "type": "scene", "text": "Corridor 2", "sceneId": "Corridor_2" , "targetYaw":67, "targetPitch":-5, "cssClass": "custom-icon" },
+                  {
+      "pitch": 36,
+      "yaw": 118, 
+      "Centre Pitch":16 ,
+       "Centre Yaw":107,
+      "type": "custom",
+      "createTooltipFunc": createInfoHotspot,
+      "createTooltipArgs": {
+        message: "🧯 Fire Extinguisher",
+        image: "info-button.png"
+      }
+    }
             ]
           },
           "L_Bed_1_1": {
